@@ -1,12 +1,26 @@
-// src/App.js
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard"; // placeholder
+import ProtectedRoute from "./components/ProtectedRoute"; // we'll create this next
 
 function App() {
   return (
-    <div>
-      <h1>Brainwaves Liquidation Dashboard</h1>
-      <p>App is running successfully 🎉</p>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
