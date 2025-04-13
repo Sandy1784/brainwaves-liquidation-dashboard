@@ -5,24 +5,25 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined); // start as undefined (not null)
 
   useEffect(() => {
-    // Load user from localStorage when app starts
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null); // explicitly say "not logged in"
     }
   }, []);
 
   const login = (userData) => {
-    setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
   };
 
   const logout = () => {
-    setUser(null);
     localStorage.removeItem("user");
+    setUser(null);
   };
 
   return (
