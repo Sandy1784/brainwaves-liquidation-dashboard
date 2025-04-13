@@ -8,16 +8,16 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Simulated Auth (replace with real backend later)
-    if (email === "admin@brainwaves.in" && password === "admin123") {
-      login({ email });
-      navigate("/dashboard");
-    } else {
-      alert("Invalid credentials");
-    }
-  };
+const handleLogin = (e) => {
+  e.preventDefault();
+  if (email === "admin@brainwaves.in" && password === "admin123") {
+    login({ email });           // ✅ context state set
+    navigate("/dashboard");     // ✅ manual redirect
+  } else {
+    alert("Invalid credentials");
+  }
+};
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
