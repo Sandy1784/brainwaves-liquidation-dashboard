@@ -1,13 +1,12 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
+  console.log("ProtectedRoute → user:", user);
 
-  if (user === null) {
-    // Wait for localStorage to hydrate
-    return <div className="text-center p-4">Loading...</div>;
+  if (user === undefined) {
+    return <div className="p-4 text-center">Checking login status...</div>; // still loading
   }
 
   return user ? children : <Navigate to="/" replace />;
